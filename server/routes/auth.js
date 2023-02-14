@@ -4,7 +4,6 @@ const bcryptjs = require("bcryptjs");
 const authRouter = express.Router();
 const jwt = require("jsonwebtoken");
 
-
 // SIGN UP
 authRouter.post("/api/signup", async (req, res) => {
   try {
@@ -55,6 +54,5 @@ authRouter.post("/api/signin", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-
 
 module.exports = authRouter;

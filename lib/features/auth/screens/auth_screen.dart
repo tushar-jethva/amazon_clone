@@ -23,6 +23,7 @@ class _MyAuthScreenState extends State<MyAuthScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLogin = false;
 
   @override
   void dispose() {
@@ -42,6 +43,7 @@ class _MyAuthScreenState extends State<MyAuthScreen> {
   }
 
   void signInUser() {
+
     authService.signInUser(
         email: _emailController.text,
         password: _passwordController.text,
@@ -100,13 +102,14 @@ class _MyAuthScreenState extends State<MyAuthScreen> {
                             controller: _passwordController,
                             hintText: "Password"),
                         Gap(10),
+                        
                         MyCustomButton(
                             onTap: () {
                               if (_signUpFormKey.currentState!.validate()) {
                                 signUpUser();
                               }
                             },
-                            text: "Sign Up")
+                            text: "Sign Up"),
                       ],
                     ),
                   ),
@@ -145,6 +148,7 @@ class _MyAuthScreenState extends State<MyAuthScreen> {
                             controller: _passwordController,
                             hintText: "Password"),
                         Gap(10),
+                        _isLogin?CircularProgressIndicator():
                         MyCustomButton(
                             onTap: () {
                               if (_signInFormKey.currentState!.validate()) {
