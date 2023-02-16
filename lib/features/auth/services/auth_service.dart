@@ -4,7 +4,7 @@ import 'package:amazon_clone/common/Widgets/bottombar.dart';
 import 'package:amazon_clone/common/Widgets/utills.dart';
 import 'package:amazon_clone/costants/error_handling.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
-import 'package:amazon_clone/features/Screens/home_screen.dart';
+import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';

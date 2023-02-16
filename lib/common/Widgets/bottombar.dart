@@ -1,5 +1,6 @@
 import 'package:amazon_clone/costants/globalvariables.dart';
-import 'package:amazon_clone/features/Screens/home_screen.dart';
+import 'package:amazon_clone/features/home/screens/home_screen.dart';
+import 'package:amazon_clone/features/account/screens/account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -20,8 +21,10 @@ class _MyBottomBarState extends State<MyBottomBar> {
 
   List<Widget> pages = [
     const MyHomeScreen(),
-    const Center(child: Text('Account Page'),),
-    const Center(child: Text('Cart Pages'),),
+    MyAccountScreen(),
+    const Center(
+      child: Text('Cart Pages'),
+    ),
   ];
 
   void updatePage(int page) {
@@ -41,16 +44,14 @@ class _MyBottomBarState extends State<MyBottomBar> {
         unselectedItemColor: MyGlobalVariables.unselectedNavBarColor,
         backgroundColor: MyGlobalVariables.backgroundColor,
         iconSize: 28,
-        onTap: updatePage,  
+        onTap: updatePage,
         items: [
           BottomNavigationBarItem(
               icon: Container(
                 width: bottomBarWidth,
                 decoration: BoxDecoration(
                     border: Border(
-                    
-                    top: BorderSide(
-                      
+                  top: BorderSide(
                       color: _page == 0
                           ? MyGlobalVariables.selectedNavBarColor
                           : MyGlobalVariables.backgroundColor,

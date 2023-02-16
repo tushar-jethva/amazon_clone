@@ -1,5 +1,5 @@
 import 'package:amazon_clone/common/Widgets/bottombar.dart';
-import 'package:amazon_clone/features/Screens/home_screen.dart';
+import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 
