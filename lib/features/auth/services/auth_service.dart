@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amazon_clone/common/Widgets/bottombar.dart';
 import 'package:amazon_clone/common/Widgets/utills.dart';
 import 'package:amazon_clone/costants/error_handling.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
@@ -62,7 +63,6 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      print(res.body);
       httpErrorHandled(
           res: res,
           context: context,
@@ -72,8 +72,43 @@ class AuthService {
             await prefs.setString(
                 "x-auth-token", jsonDecode(res.body)['token']);
             Navigator.pushNamedAndRemoveUntil(
-                context, MyHomeScreen.routeName, (route) => false);
+                context, MyBottomBar.routeName, (route) => false);
           });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //get user data
+  void getUserData(
+    BuildContext context,
+  ) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      if (token == null) {
+        prefs.setString('x-auth-token', '');
+      }
+
+      var tokenRes = await http.post(Uri.parse('$url/tokenIsValid'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token!
+          });
+
+      var response = jsonDecode(tokenRes.body);
+      if (response == true) {
+        //get user data
+        http.Response userRes = await http.get(Uri.parse('$url/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'x-auth-token': token
+            });
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userRes.body);
+        print(jsonDecode(userRes.body)['token']);
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }

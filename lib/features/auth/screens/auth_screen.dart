@@ -43,11 +43,16 @@ class _MyAuthScreenState extends State<MyAuthScreen> {
   }
 
   void signInUser() {
-
+    setState(() {
+      _isLogin = true;
+    });
     authService.signInUser(
         email: _emailController.text,
         password: _passwordController.text,
         context: context);
+    setState(() {
+      _isLogin = false;
+    });
   }
 
   @override
@@ -102,7 +107,6 @@ class _MyAuthScreenState extends State<MyAuthScreen> {
                             controller: _passwordController,
                             hintText: "Password"),
                         Gap(10),
-                        
                         MyCustomButton(
                             onTap: () {
                               if (_signUpFormKey.currentState!.validate()) {
@@ -148,14 +152,16 @@ class _MyAuthScreenState extends State<MyAuthScreen> {
                             controller: _passwordController,
                             hintText: "Password"),
                         Gap(10),
-                        _isLogin?CircularProgressIndicator():
-                        MyCustomButton(
-                            onTap: () {
-                              if (_signInFormKey.currentState!.validate()) {
-                                signInUser();
-                              }
-                            },
-                            text: "Sign In")
+                        
+                            MyCustomButton(
+                                    onTap: () {
+                                      if (_signInFormKey.currentState!
+                                          .validate()) {
+                                        signInUser();
+                                      }
+                                    },
+                                    text: "Sign In")
+                        // Text("data"))
                       ],
                     ),
                   ),
