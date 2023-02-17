@@ -17,8 +17,7 @@ class MyCategoryOneItem extends StatelessWidget {
     return Column(
       children: [
         Container(
-        
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.asset(

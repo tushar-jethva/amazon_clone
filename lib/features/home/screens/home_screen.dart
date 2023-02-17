@@ -1,4 +1,7 @@
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
+import 'package:amazon_clone/features/home/widgets/carousel_image.dart';
+import 'package:amazon_clone/features/home/widgets/deal_of_day.dart';
+import 'package:amazon_clone/features/home/widgets/men.dart';
 import 'package:amazon_clone/features/home/widgets/top_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -19,6 +22,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyGlobalVariables.greyBackgroundCOlor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
@@ -90,12 +94,21 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           ),
         ),
       ),
-     body: Column(
-      children: [
-        MyAddressBox(),
-        Gap(10),
-        MyTopCategories(),
-      ],
+     body: SingleChildScrollView(
+       child: Column(
+        children: [
+          MyAddressBox(),
+          Gap(4),
+          MyTopCategories(),
+          Gap(4),
+          MyCarouselImage(),
+          Gap(4),
+          MyDealOfDay(),
+          Gap(4),
+          MyMenCollection(),
+          Gap(4),
+        ],
+       ),
      ),
     );
   }

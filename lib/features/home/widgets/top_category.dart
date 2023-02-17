@@ -11,8 +11,10 @@ class MyTopCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
+    return Container(
+      color: Colors.white,
+      //margin: const EdgeInsets.only(top: 1,bottom: 1),
+      height: 70,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemExtent: 75,

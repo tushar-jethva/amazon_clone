@@ -1,5 +1,6 @@
 import 'package:amazon_clone/common/Widgets/bottombar.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
+import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/auth/services/auth_service.dart';
@@ -55,7 +56,9 @@ class _MyAppState extends State<MyApp> {
                 .user
                 .token
                 .isNotEmpty
-            ? MyBottomBar()
+            ? Provider.of<UserProvider>(context)
+                .user
+                .type == 'user'? MyBottomBar():const MyAdminScreen()
             : MyAuthScreen());
   }
 }
