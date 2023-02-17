@@ -13,14 +13,15 @@ class MyCarouselImage extends StatelessWidget {
     return CarouselSlider(
         items: MyGlobalVariables.carouselImages.map((i) {
           return Builder(
-              builder: (BuildContext context) => 
-              CachedNetworkImage(
+              builder: (BuildContext context) => CachedNetworkImage(
                     imageUrl: i,
                     fit: BoxFit.cover,
                     height: 200,
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ));
-           //Image.network(i, fit: BoxFit.cover, height: 200));
+          //Image.network(i, fit: BoxFit.cover, height: 200));
         }).toList(),
         options: CarouselOptions(
           viewportFraction: 1,

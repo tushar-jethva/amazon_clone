@@ -38,7 +38,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               children: [
                 Expanded(
                   child: Container(
-                    height: 42,
+                      height: 42,
                       margin: const EdgeInsets.only(left: 5),
                       child: Material(
                         borderRadius: BorderRadius.circular(7),
@@ -47,22 +47,27 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                           decoration: InputDecoration(
                             hintText: 'Search Amazon.in',
                             hintStyle: const TextStyle(
-                             fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w400,
                               fontSize: 17,
                             ),
                             suffixIcon: InkWell(
                               onTap: () {},
                               child: const Padding(
                                 padding: const EdgeInsets.only(left: 6),
-                                
-                                child: Icon(Icons.select_all_rounded,color: Colors.black54,),
+                                child: Icon(
+                                  Icons.select_all_rounded,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ),
                             prefixIcon: InkWell(
                               onTap: () {},
                               child: const Padding(
                                 padding: const EdgeInsets.only(left: 6),
-                                child: Icon(Icons.search_outlined,color: Colors.black,),
+                                child: Icon(
+                                  Icons.search_outlined,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                             filled: true,
@@ -86,30 +91,34 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 Container(
                   color: Colors.transparent,
                   height: 42,
-                  margin: const EdgeInsets.only(left: 8,right: 5),
-                  child: const Icon(Icons.mic,color: Colors.black,size: 25,),
+                  margin: const EdgeInsets.only(left: 8, right: 5),
+                  child: const Icon(
+                    Icons.mic,
+                    color: Colors.black,
+                    size: 25,
+                  ),
                 )
               ],
             ),
           ),
         ),
       ),
-     body: SingleChildScrollView(
-       child: Column(
-        children: [
-          MyAddressBox(),
-          Gap(4),
-          MyTopCategories(),
-          Gap(4),
-          MyCarouselImage(),
-          Gap(4),
-          MyDealOfDay(),
-          Gap(4),
-          MyMenCollection(),
-          Gap(4),
-        ],
-       ),
-     ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            MyAddressBox(),
+            Gap(4),
+            MyTopCategories(),
+            Gap(4),
+            MyCarouselImage(),
+            Gap(4),
+            MyDealOfDay(),
+            Gap(4),
+            MyMenCollection(),
+            Gap(4),
+          ],
+        ),
+      ),
     );
   }
 }
