@@ -42,23 +42,31 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-            scaffoldBackgroundColor: MyGlobalVariables.backgroundColor,
-            colorScheme: ColorScheme.light(
-              primary: MyGlobalVariables.secondaryColor,
-            ),
-            appBarTheme: AppBarTheme(
-                elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
-        onGenerateRoute: (settings) => generateRoute(settings),
-        home: Provider.of<UserProvider>(context)
-                .user
-                .token
-                .isNotEmpty
-            ? Provider.of<UserProvider>(context)
-                .user
-                .type == 'user'? MyBottomBar():const MyAdminScreen()
-            : MyAuthScreen());
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+          scaffoldBackgroundColor: MyGlobalVariables.backgroundColor,
+          colorScheme: ColorScheme.light(
+            primary: MyGlobalVariables.secondaryColor,
+          ),
+          appBarTheme: AppBarTheme(
+              elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home:
+          // Provider.of<UserProvider>(context).user.token.isNotEmpty
+          //   ? Provider.of<UserProvider>(context).user.type == 'user'
+          //       ? const MyBottomBar()
+          //       : const MyAdminScreen()
+          //   : const MyAuthScreen(),
+
+          Provider.of<UserProvider>(context).user.token.isNotEmpty
+              ? 
+              Provider.of<UserProvider>(context).user.type == "user"
+                  ? MyBottomBar()
+                  : MyAdminScreen()
+              : MyAuthScreen(),
+          
+          
+    );
   }
 }

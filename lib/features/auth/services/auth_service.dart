@@ -4,6 +4,7 @@ import 'package:amazon_clone/common/Widgets/bottombar.dart';
 import 'package:amazon_clone/common/Widgets/utills.dart';
 import 'package:amazon_clone/costants/error_handling.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
+import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
@@ -71,8 +72,13 @@ class AuthService {
             Provider.of<UserProvider>(context, listen: false).setUser(res.body);
             await prefs.setString(
                 "x-auth-token", jsonDecode(res.body)['token']);
-            Navigator.pushNamedAndRemoveUntil(
-                context, MyBottomBar.routeName, (route) => false);
+
+            Provider.of<UserProvider>(context, listen: false).user.type ==
+                    "user"
+                ? Navigator.pushNamedAndRemoveUntil(
+                    context, MyBottomBar.routeName, (route) => false)
+                : Navigator.pushNamedAndRemoveUntil(
+                    context, MyAdminScreen.routeName, (route) => false);
           });
     } catch (e) {
       showSnackBar(context, e.toString());
