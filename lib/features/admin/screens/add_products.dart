@@ -6,6 +6,7 @@ import 'package:amazon_clone/common/mycustombutton.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
+import 'package:amazon_clone/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class _MyAdminProductsAddState extends State<MyAdminProductsAdd> {
   final TextEditingController _discriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
+  final AdminServices adminServices = AdminServices();
+  final _addProductFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -60,6 +63,18 @@ class _MyAdminProductsAddState extends State<MyAdminProductsAdd> {
   }
 
   String category = "Mobiles";
+
+  void sellProduct() {
+    adminServices.sellProduct(
+        context: context,
+        name: _productNameController.text,
+        description: _discriptionController.text,
+        price: double.parse(_priceController.text),
+        quantity: double.parse(_quantityController.text),
+        category: category,
+        images: images);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,96 +96,105 @@ class _MyAdminProductsAddState extends State<MyAdminProductsAdd> {
         ),
         body: SingleChildScrollView(
           child: Form(
+              key: _addProductFormKey,
               child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
-              children: [
-                Gap(30),
-                images.isNotEmpty
-                    ? CarouselSlider(
-                        items: images.map((i) {
-                          return Builder(
-                              builder: (BuildContext context) => Image.file(
-                                    i,
-                                    fit: BoxFit.cover,
-                                    height: 200,
-                                  ));
-                        }).toList(),
-                        options: CarouselOptions(
-                           enableInfiniteScroll: false,
-                            autoPlay: true,
-                            autoPlayAnimationDuration:
-                                Duration(milliseconds: 1000),
-                            pauseAutoPlayOnTouch: true))
-                    : GestureDetector(
-                        onTap: selectImages,
-                        child: DottedBorder(
-                          borderType: BorderType.RRect,
-                          radius: const Radius.circular(10),
-                          dashPattern: const [10, 4],
-                          strokeCap: StrokeCap.round,
-                          child: Container(
-                            width: double.infinity,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.folder_open,
-                                  size: 40,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    Gap(30),
+                    images.isNotEmpty
+                        ? CarouselSlider(
+                            items: images.map((i) {
+                              return Builder(
+                                  builder: (BuildContext context) => Image.file(
+                                        i,
+                                        fit: BoxFit.cover,
+                                        height: 200,
+                                      ));
+                            }).toList(),
+                            options: CarouselOptions(
+                                enableInfiniteScroll: false,
+                                autoPlay: true,
+                                autoPlayAnimationDuration:
+                                    Duration(milliseconds: 1000),
+                                pauseAutoPlayOnTouch: true))
+                        : GestureDetector(
+                            onTap: selectImages,
+                            child: DottedBorder(
+                              borderType: BorderType.RRect,
+                              radius: const Radius.circular(10),
+                              dashPattern: const [10, 4],
+                              strokeCap: StrokeCap.round,
+                              child: Container(
+                                width: double.infinity,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                Gap(15),
-                                Text(
-                                  'Select Product Images',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.grey.shade400),
-                                )
-                              ],
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.folder_open,
+                                      size: 40,
+                                    ),
+                                    Gap(15),
+                                    Text(
+                                      'Select Product Images',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.grey.shade400),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                    Gap(30),
+                    MyCustomTextField(
+                        controller: _productNameController,
+                        hintText: "Product Name"),
+                    Gap(10),
+                    MyCustomTextField(
+                      controller: _discriptionController,
+                      hintText: "Discription",
+                      maxLines: 7,
+                    ),
+                    Gap(10),
+                    MyCustomTextField(
+                        controller: _priceController, hintText: "Price"),
+                    Gap(10),
+                    MyCustomTextField(
+                        controller: _quantityController, hintText: "Quantity"),
+                    SizedBox(
+                      width: double.infinity,
+                      child: DropdownButton(
+                        value: category,
+                        icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                        items: productCategory.map((String item) {
+                          return DropdownMenuItem(
+                              value: item, child: Text(item));
+                        }).toList(),
+                        onChanged: (String? newval) {
+                          setState(() {
+                            category = newval!;
+                          });
+                        },
                       ),
-                Gap(30),
-                MyCustomTextField(
-                    controller: _productNameController,
-                    hintText: "Product Name"),
-                Gap(10),
-                MyCustomTextField(
-                  controller: _discriptionController,
-                  hintText: "Discription",
-                  maxLines: 7,
+                    ),
+                    Gap(30),
+                    MyCustomButton(
+                        onTap: () {
+                          if (_addProductFormKey.currentState!.validate() &&
+                              images.isNotEmpty) {
+                            sellProduct();
+                          }
+                        },
+                        text: 'Sell'),
+                    Gap(20),
+                  ],
                 ),
-                Gap(10),
-                MyCustomTextField(
-                    controller: _priceController, hintText: "Price"),
-                Gap(10),
-                MyCustomTextField(
-                    controller: _quantityController, hintText: "Quantity"),
-                SizedBox(
-                  width: double.infinity,
-                  child: DropdownButton(
-                    value: category,
-                    icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                    items: productCategory.map((String item) {
-                      return DropdownMenuItem(value: item, child: Text(item));
-                    }).toList(),
-                    onChanged: (String? newval) {
-                      setState(() {
-                        category = newval!;
-                      });
-                    },
-                  ),
-                ),
-                Gap(30),
-                MyCustomButton(onTap: () {}, text: 'Sell'),
-                Gap(20),
-              ],
-            ),
-          )),
+              )),
         ));
   }
 }
