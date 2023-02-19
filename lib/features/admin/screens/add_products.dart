@@ -7,6 +7,7 @@ import 'package:amazon_clone/costants/globalvariables.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
 import 'package:amazon_clone/features/admin/services/admin_services.dart';
+import 'package:amazon_clone/models/product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,8 @@ class _MyAdminProductsAddState extends State<MyAdminProductsAdd> {
         price: double.parse(_priceController.text),
         quantity: double.parse(_quantityController.text),
         category: category,
-        images: images);
+        images: images,
+        );
   }
 
   @override

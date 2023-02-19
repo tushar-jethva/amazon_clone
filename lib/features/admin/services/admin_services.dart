@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:amazon_clone/common/Widgets/utills.dart';
@@ -11,7 +12,6 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class AdminServices {
-
   void sellProduct({
     required BuildContext context,
     required String name,
@@ -20,6 +20,7 @@ class AdminServices {
     required double quantity,
     required String category,
     required List<File> images,
+   
   }) async {
     final user = Provider.of<UserProvider>(context, listen: false).user;
     try {
@@ -53,9 +54,57 @@ class AdminServices {
           onSuccess: () {
             showSnackBar(context, "Product Added Successfully");
             Navigator.pop(context);
+            
           });
     } catch (e) {
       showSnackBar(context, e.toString());
+    }
+  }
+
+  //get all products
+  Future<List<Product>> fetchAllProducts(BuildContext context) async {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    List<Product> productList = [];
+    try {
+      http.Response res = await http
+          .get(Uri.parse('$url/admin/get-products'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': user.token,
+      });
+      httpErrorHandled(
+          res: res,
+          context: context,
+          onSuccess: () {
+            for (int i = 0; i < jsonDecode(res.body).length; i++) {
+              productList
+                  .add(Product.fromJson(jsonEncode(jsonDecode(res.body)[i])));
+            }
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return productList;
+  }
+
+  void deleteProduct(
+      {required BuildContext context,
+      required Product product,
+      required VoidCallback onSuccess}) async {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    try {
+      http.Response res = await http.post(
+        Uri.parse(
+          '$url/admin/delete-product',
+        ),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': user.token,
+        },
+        body: jsonEncode({"id": product.id}),
+      );
+      httpErrorHandled(res: res, context: context, onSuccess: onSuccess);
+    } catch (e) {
+      showSnackBar(context, "Product Deleted!");
     }
   }
 }

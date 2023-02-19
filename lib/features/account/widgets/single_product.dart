@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class MySingleProduct extends StatelessWidget {
@@ -12,7 +13,7 @@ class MySingleProduct extends StatelessWidget {
           child: Container(
               width: 180,
               padding: const EdgeInsets.all(5),
-              child: Image.asset(path,fit: BoxFit.fitHeight,width: 180,)),
+              child: CachedNetworkImage(imageUrl:path,fit: BoxFit.fitHeight,width: 180,)),
         
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
