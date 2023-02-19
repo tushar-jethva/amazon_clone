@@ -24,3 +24,5 @@ adminRouter.post('/admin/add-Product',admin,async(req,res)=>{
         res.status(500).json({error:err.message});
     }
 })
+
+module.exports = adminRouter;

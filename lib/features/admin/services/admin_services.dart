@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class AdminServices {
+
   void sellProduct({
     required BuildContext context,
     required String name,
@@ -39,7 +40,7 @@ class AdminServices {
           category: category,
           price: price);
 
-      http.Response res = await http.post(Uri.parse('$url//admin/add-Product'),
+      http.Response res = await http.post(Uri.parse('$url/admin/add-Product'),
           body: product.toJson(),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
