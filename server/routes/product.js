@@ -8,9 +8,10 @@ const Product = require('../models/admin')
 //if we want to access essentials we use req.query.category
 productRouter.get('/api/products',auth,async(req,res)=>{
     try{
-            console.log(req.query.category);
+            //console.log(req.query.category);
             const product = await Product.find({category:req.query.category});
             res.json(product);
+            
     }
     catch(e){
         res.status(500).json({error:e.message});
@@ -23,6 +24,7 @@ productRouter.get('/api/product/search/:name',auth,async(req,res)=>{
             name:{$regex: req.params.name, $options: 'i'},
         });
         res.json(products);
+        console.log(products);
     }
     catch(e){
         res.status(500).json({error:e.message});
@@ -44,13 +46,11 @@ productRouter.get('/api/product',auth,async(req,res)=>{
     try{
             console.log(req.query.query);
             const product = await Product.find({category:req.query.category, name:{$regex:req.query.query, $options:'i'}});
+            console.log(product);
             res.json(product);
     }
     catch(e){
         res.status(500).json({error:e.message});
     }
 })
-
-
-
 module.exports = productRouter;

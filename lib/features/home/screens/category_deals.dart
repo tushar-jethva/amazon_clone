@@ -3,7 +3,7 @@ import 'package:amazon_clone/costants/loader.dart';
 import 'package:amazon_clone/features/home/screens/category_search.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/home/services/home_services.dart';
-import 'package:amazon_clone/features/home/widgets/detail_product.dart';
+import 'package:amazon_clone/features/product_details/screens/detail_product.dart';
 import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:cached_network_image/cached_network_image.dart';

@@ -19,8 +19,6 @@ class User {
     required this.token,
   });
 
-  
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
