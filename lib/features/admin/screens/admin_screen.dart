@@ -1,5 +1,6 @@
 import 'package:amazon_clone/costants/globalvariables.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
+import 'package:amazon_clone/features/admin/screens/second_admin_posts.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';

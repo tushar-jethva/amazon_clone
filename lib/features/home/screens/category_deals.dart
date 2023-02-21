@@ -1,12 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:amazon_clone/costants/loader.dart';
+import 'package:amazon_clone/features/home/screens/category_search.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/home/services/home_services.dart';
 import 'package:amazon_clone/features/home/widgets/detail_product.dart';
+import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
@@ -28,6 +31,7 @@ class MyCategoryDeal extends StatefulWidget {
 
 class _MyCategoryDealState extends State<MyCategoryDeal> {
   final HomeServices homeServices = HomeServices();
+  TextEditingController _queryController = TextEditingController();
   List<Product>? productLis;
   @override
   void initState() {
@@ -42,13 +46,30 @@ class _MyCategoryDealState extends State<MyCategoryDeal> {
     setState(() {});
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _queryController.dispose();
+  }
+
   void navigateToHomeScreen() {
     //Navigator.pushNamedAndRemoveUntil(context, MyHomeScreen.routeName, (route) => false);
     Navigator.pop(context);
   }
 
   void navigateToDetailScreen(BuildContext context, Product product) {
-    Navigator.pushNamed(context, MyDetailScreen.routeName,arguments: product);
+    Navigator.pushNamed(context, MyDetailScreen.routeName, arguments: product);
+  }
+
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, MySearchScreen.routeName, arguments: query);
+  }
+
+  void navigateToCategorySearchScreen(String query) {
+   // print(query);
+    Navigator.pushNamed(context, MyCategorySearch.routeName,
+        arguments: [widget.category,query]);
   }
 
   @override
@@ -77,6 +98,7 @@ class _MyCategoryDealState extends State<MyCategoryDeal> {
                         borderRadius: BorderRadius.circular(7),
                         elevation: 1,
                         child: TextFormField(
+                          onFieldSubmitted: navigateToCategorySearchScreen,
                           decoration: InputDecoration(
                             hintText: 'Search in ${widget.category}',
                             hintMaxLines: 1,
@@ -150,7 +172,7 @@ class _MyCategoryDealState extends State<MyCategoryDeal> {
               itemBuilder: (context, index) {
                 final product = productLis![index];
                 return InkWell(
-                  onTap: ()=>navigateToDetailScreen(context,product),
+                  onTap: () => navigateToDetailScreen(context, product),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

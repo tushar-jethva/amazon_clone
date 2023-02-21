@@ -3,6 +3,7 @@ import 'package:amazon_clone/features/home/widgets/carousel_image.dart';
 import 'package:amazon_clone/features/home/widgets/deal_of_day.dart';
 import 'package:amazon_clone/features/home/widgets/men.dart';
 import 'package:amazon_clone/features/home/widgets/top_category.dart';
+import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -19,6 +20,12 @@ class MyHomeScreen extends StatefulWidget {
 }
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
+  
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, MySearchScreen.routeName,arguments: query);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +51,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                         borderRadius: BorderRadius.circular(7),
                         elevation: 1,
                         child: TextFormField(
+                          onFieldSubmitted: navigateToSearchScreen,
                           decoration: InputDecoration(
                             hintText: 'Search Amazon.in',
                             hintStyle: const TextStyle(
