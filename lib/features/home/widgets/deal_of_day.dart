@@ -44,13 +44,14 @@ class _MyDealOfDayState extends State<MyDealOfDay> {
 
   @override
   Widget build(BuildContext context) {
-    return product == null
-        ? const MyLoader()
-        : Column(
-            children: [
-              Container(
-                  color: Colors.white,
-                  child: Column(
+    return Column(
+      children: [
+        Container(
+            height: 485,
+            color: Colors.white,
+            child: product == null
+                ? const MyLoader()
+                : Column(
                     children: [
                       Container(
                         alignment: Alignment.topLeft,
@@ -142,7 +143,7 @@ class _MyDealOfDayState extends State<MyDealOfDay> {
                         padding: const EdgeInsets.only(
                             left: 15, top: 15, bottom: 15),
                         alignment: Alignment.topLeft,
-                        child: GestureDetector(
+                        child: InkWell(
                           onTap: navigateToSeeAllProducts,
                           child: Text(
                             "See all deals",
@@ -152,7 +153,7 @@ class _MyDealOfDayState extends State<MyDealOfDay> {
                       )
                     ],
                   ))
-            ],
-          );
+      ],
+    );
   }
 }

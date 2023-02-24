@@ -93,33 +93,31 @@ class HomeServices {
     return productList;
   }
 
-//   Future<List<Product>> getDealOfDay({
-//     required BuildContext context,
-//   }) async {
-//     final user = Provider.of<UserProvider>(context, listen: false).user;
-//     List<Product> product = [];
-//     try {
-//       http.Response res = await http
-//           .get(Uri.parse('$url/api/deal-of-day'), headers: <String, String>{
-//         'Content-Type': 'application/json; charset=UTF-8',
-//         'x-auth-token': user.token,
-//       });
+  Future<List<Product>> getDiscountProducts({
+    required BuildContext context,
+    required String category,
+  }) async {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    List<Product> list = [];
+    try {
+      http.Response res = await http.get(
+          Uri.parse('$url/api/discount-products?category=$category'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': user.token,
+          });
 
-//       httpErrorHandled(
-//           res: res,
-//           context: context,
-//           onSuccess: () {
-//             for (int i = 0; i < jsonDecode(res.body).length; i++) {
-//               product
-//                   .add(Product.fromJson(jsonEncode(jsonDecode(res.body)[i])));
-//             }
-//           });
-//       print(res);
-//     } catch (e) {
-//       showSnackBar(context, e.toString());
-//     }
-
-//     return product;
-//   }
-// }
+      httpErrorHandled(
+          res: res,
+          context: context,
+          onSuccess: () {
+            for (int i = 0; i < jsonDecode(res.body).length; i++) {
+              list.add(Product.fromJson(jsonEncode(jsonDecode(res.body)[i])));
+            }
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return list;
+  }
 }

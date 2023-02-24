@@ -1,4 +1,4 @@
-import 'dart:async';
+
 
 import 'package:amazon_clone/common/Widgets/bottombar.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
@@ -39,7 +39,6 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     authService.getUserData(context);
-   
   }
 
   // This widget is the root of your application.

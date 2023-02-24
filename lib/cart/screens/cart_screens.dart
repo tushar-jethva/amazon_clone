@@ -1,33 +1,35 @@
+import 'package:amazon_clone/cart/widgets/cart_product.dart';
+import 'package:amazon_clone/cart/widgets/cart_subtotal.dart';
+import 'package:amazon_clone/common/mycustombutton.dart';
+import 'package:amazon_clone/costants/globalvariables.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
-import 'package:amazon_clone/features/home/widgets/carousel_image.dart';
-import 'package:amazon_clone/features/home/widgets/deal_of_day.dart';
-import 'package:amazon_clone/features/home/widgets/men.dart';
-import 'package:amazon_clone/features/home/widgets/top_category.dart';
-import 'package:amazon_clone/features/search/screens/search_screen.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
-import '../../../costants/globalvariables.dart';
+import '../../features/search/screens/search_screen.dart';
 
-class MyHomeScreen extends StatefulWidget {
-  static const String routeName = '/home';
-  const MyHomeScreen({super.key});
+class MyCartScreen extends StatefulWidget {
+  static const String routeName = '/my-cart';
+  const MyCartScreen({super.key});
 
   @override
-  State<MyHomeScreen> createState() => _MyHomeScreenState();
+  State<MyCartScreen> createState() => _MyCartScreenState();
 }
 
-class _MyHomeScreenState extends State<MyHomeScreen> {
+class _MyCartScreenState extends State<MyCartScreen> {
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, MySearchScreen.routeName, arguments: query);
   }
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<UserProvider>().user;
+
     return Scaffold(
-      backgroundColor: MyGlobalVariables.greyBackgroundCOlor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
@@ -109,31 +111,34 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            MyAddressBox(),
-            Gap(4),
-            MyTopCategories(),
-            Gap(4),
-            MyCarouselImage(),
-            Gap(4),
-            MyDealOfDay(),
-            Gap(4),
-            MyMenCollection(
-              category: 'Mobiles',
+      body: Column(
+        children: [
+          const MyAddressBox(),
+          const MyCartSubTotal(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: MyCustomButton(
+              text: 'Proceed to Buy ${user.cart.length} items',
+              onTap: () {},
+              color: const Color.fromRGBO(254, 216, 19, 1),
             ),
-            Gap(4),
-            MyMenCollection(
-              category: 'Appliances',
+          ),
+          Gap(15),
+          Container(
+            color: Colors.black12.withOpacity(0.08),
+            height: 1,
+          ),
+          Gap(5),
+          Expanded(
+            child: ListView.builder(
+              itemCount: user.cart.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return MyCartProduct(index: index);
+              },
             ),
-            Gap(4),
-            MyMenCollection(
-              category: 'Fashion',
-            ),
-            Gap(4),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

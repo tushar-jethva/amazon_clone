@@ -1,7 +1,7 @@
 const express = require('express');
 const productRouter = express.Router();
 const auth = require('../middlewares/auth');
-const Product = require('../models/admin')
+const {Product} = require('../models/admin')
 //as we can't give req.body in get api so we give body in apilink
 //ex. /api/products?category=Essentials
 //our  link will be look like above link

@@ -1,3 +1,4 @@
+import 'package:amazon_clone/cart/screens/cart_screens.dart';
 import 'package:amazon_clone/common/Widgets/bottombar.dart';
 import 'package:amazon_clone/features/admin/screens/add_products.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
@@ -68,6 +69,13 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
               ));
 
     case MySeeAllProduct.routeName:
+      List<Product> products = routeSettings.arguments as List<Product>;
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => MySeeAllProduct(
+              product: products,
+          ));
+
+      case MyCartScreen.routeName:
       List<Product> products = routeSettings.arguments as List<Product>;
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => MySeeAllProduct(
