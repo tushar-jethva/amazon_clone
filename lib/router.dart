@@ -6,6 +6,7 @@ import 'package:amazon_clone/features/home/screens/category_deals.dart';
 import 'package:amazon_clone/features/home/screens/category_search.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
+import 'package:amazon_clone/features/home/widgets/see_all.dart';
 import 'package:amazon_clone/features/product_details/screens/detail_product.dart';
 import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:amazon_clone/models/product.dart';
@@ -60,9 +61,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case MyCategorySearch.routeName:
       List<dynamic> args = routeSettings.arguments as List<dynamic>;
       return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => MyCategorySearch(
-            category: args[0],
-            query: args[1],
+          settings: routeSettings,
+          builder: (_) => MyCategorySearch(
+                category: args[0],
+                query: args[1],
+              ));
+
+    case MySeeAllProduct.routeName:
+      List<Product> products = routeSettings.arguments as List<Product>;
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => MySeeAllProduct(
+              product: products,
           ));
 
     default:

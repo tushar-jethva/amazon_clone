@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -22,8 +23,9 @@ class MyDealSingle extends StatelessWidget {
           child: Container(
               width: 50,
               padding: const EdgeInsets.all(5),
-              child: Image.asset(path,fit: BoxFit.fitHeight,width: 50,)),
-        
+              child: CachedNetworkImage(imageUrl: path,fit: BoxFit.contain,width: 50,))
+              ,
+    
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: Colors.white,

@@ -67,9 +67,9 @@ class _MyCategoryDealState extends State<MyCategoryDeal> {
   }
 
   void navigateToCategorySearchScreen(String query) {
-   // print(query);
+    // print(query);
     Navigator.pushNamed(context, MyCategorySearch.routeName,
-        arguments: [widget.category,query]);
+        arguments: [widget.category, query]);
   }
 
   @override
@@ -182,8 +182,9 @@ class _MyCategoryDealState extends State<MyCategoryDeal> {
                         width: 130,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: Colors.black, width: 0.5)),
+                              // border:
+                              //     Border.all(color: Colors.black, width: 0.5),
+                              ),
                           child: Padding(
                             padding: const EdgeInsets.all(8),
                             child: CachedNetworkImage(

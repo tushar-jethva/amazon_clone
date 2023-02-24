@@ -4,7 +4,9 @@ import 'package:amazon_clone/common/stars.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
 import 'package:amazon_clone/features/home/widgets/carousel_image.dart';
+import 'package:amazon_clone/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone/features/search/screens/search_screen.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class MyDetailScreen extends StatefulWidget {
   final Product product;
@@ -28,6 +31,29 @@ class MyDetailScreen extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyDetailScreen> {
+  final ProductDetailServices productDetailServices = ProductDetailServices();
+
+  double avgRating = 0;
+  double myRating = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    double totalRating = 0;
+    for (int i = 0; i < widget.product.rating!.length; i++) {
+      totalRating += widget.product.rating![i].rating;
+      if (widget.product.rating![i].userId ==
+          Provider.of<UserProvider>(context, listen: false).user.id) {
+        myRating = widget.product.rating![i].rating;
+      }
+    }
+
+    if (totalRating != 0) {
+      avgRating = totalRating / widget.product.rating!.length;
+    }
+  }
+
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, MySearchScreen.routeName, arguments: query);
   }
@@ -140,7 +166,7 @@ class _MyWidgetState extends State<MyDetailScreen> {
                     'Visit the Tej Store',
                     style: TextStyle(color: Colors.teal),
                   ),
-                  MyStars(rating: 4.5),
+                  MyStars(rating: avgRating),
                 ],
               ),
             ),
@@ -245,7 +271,7 @@ class _MyWidgetState extends State<MyDetailScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6.5),
               child: RatingBar.builder(
-                  initialRating: 0,
+                  initialRating: myRating,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -255,7 +281,13 @@ class _MyWidgetState extends State<MyDetailScreen> {
                         Icons.star,
                         color: MyGlobalVariables.secondaryColor,
                       ),
-                  onRatingUpdate: (rating) {}),
+                  onRatingUpdate: (rating) {
+                    productDetailServices.rateProduct(
+                        context: context,
+                        product: widget.product,
+                        rating: rating);
+
+                  }),
             )
           ],
         ),
