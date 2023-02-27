@@ -97,7 +97,6 @@ productRouter.get('/api/deal-of-day',auth,async(req,res)=>{
         });
 
         res.json(product);
-        console.log(product);
     }
     catch(e){
         res.status(500).json({error:e.message})

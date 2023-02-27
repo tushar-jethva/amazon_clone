@@ -1,5 +1,6 @@
 import 'package:amazon_clone/cart/screens/cart_screens.dart';
 import 'package:amazon_clone/common/Widgets/bottombar.dart';
+import 'package:amazon_clone/features/address/screens/address_Screen.dart';
 import 'package:amazon_clone/features/admin/screens/add_products.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
@@ -8,8 +9,10 @@ import 'package:amazon_clone/features/home/screens/category_search.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/home/widgets/see_all.dart';
+import 'package:amazon_clone/features/order_detail/order_detail_screen.dart';
 import 'package:amazon_clone/features/product_details/screens/detail_product.dart';
 import 'package:amazon_clone/features/search/screens/search_screen.dart';
+import 'package:amazon_clone/models/order.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:flutter/material.dart';
 
@@ -71,16 +74,33 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case MySeeAllProduct.routeName:
       List<Product> products = routeSettings.arguments as List<Product>;
       return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => MySeeAllProduct(
-              product: products,
-          ));
+          settings: routeSettings,
+          builder: (_) => MySeeAllProduct(
+                product: products,
+              ));
 
-      case MyCartScreen.routeName:
+    case MyCartScreen.routeName:
       List<Product> products = routeSettings.arguments as List<Product>;
       return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => MySeeAllProduct(
-              product: products,
-          ));
+          settings: routeSettings,
+          builder: (_) => MySeeAllProduct(
+                product: products,
+              ));
+
+    case MyAddressScreen.routeName:
+      var totalAmount = routeSettings.arguments as String;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => MyAddressScreen(
+                amount: totalAmount,
+              ));
+
+    case MyOrderDetailScreen.routeName:
+      Order orders = routeSettings.arguments as Order;
+      return MaterialPageRoute(
+          builder: (_) => MyOrderDetailScreen(
+                order: orders,
+              ));
 
     default:
       return MaterialPageRoute(

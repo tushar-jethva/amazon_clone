@@ -15,7 +15,7 @@ class MyAddressBox extends StatelessWidget {
       decoration: BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          Color.fromARGB(255, 144, 226, 221),
+          Color.fromARGB(255, 131, 240, 233),
           Color.fromARGB(255, 162, 236, 233)
         ],
         stops: [0.5, 1.0],
@@ -39,7 +39,7 @@ class MyAddressBox extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: const EdgeInsets.only(left: 5, top: 2,right: 8),
+            padding: const EdgeInsets.only(left: 5, top: 2, right: 8),
             child: Icon(
               Icons.arrow_drop_down_outlined,
               color: Colors.black,

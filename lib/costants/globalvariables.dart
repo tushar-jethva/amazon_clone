@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 String url = "http://192.168.34.230:3000";
-class MyGlobalVariables{
+
+class MyGlobalVariables {
   // COLORS
   static const appBarGradient = LinearGradient(
     colors: [
-      Color.fromARGB(255, 29, 201, 192),
-      Color.fromARGB(255, 125, 221, 216),
+      Color.fromARGB(255, 92, 243, 235),
+      Color.fromARGB(255, 188, 240, 237),
     ],
     stops: [0.5, 1.0],
   );
@@ -17,8 +18,7 @@ class MyGlobalVariables{
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
 
-
-   // STATIC IMAGES
+  // STATIC IMAGES
   static const List<String> carouselImages = [
     'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/WLA/TS/D37847648_Accessories_savingdays_Jan22_Cat_PC_1500.jpg',
     'https://images-eu.ssl-images-amazon.com/images/G/31/img2021/Vday/bwl/English.jpg',
@@ -49,6 +49,4 @@ class MyGlobalVariables{
       'image': 'assets/images/fashion.jpeg',
     },
   ];
-
-
 }

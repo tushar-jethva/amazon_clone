@@ -22,19 +22,27 @@ class MyAccountScreen extends StatelessWidget {
             ),
           ),
           title: Padding(
-            padding: const EdgeInsets.only(top:8.9),
+            padding: const EdgeInsets.only(top: 8.9),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Image.asset('assets/images/amazon_in.png',width: 120,height: 45,color: Colors.black,),
+                  child: Image.asset(
+                    'assets/images/amazon_in.png',
+                    width: 120,
+                    height: 45,
+                    color: Colors.black,
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(left: 15,right: 15),
+                  padding: const EdgeInsets.only(left: 15, right: 15),
                   child: Row(
                     children: [
-                      Padding(padding: EdgeInsets.only(right: 15),child: Icon(Icons.notifications_outlined),),
+                      Padding(
+                        padding: EdgeInsets.only(right: 15),
+                        child: Icon(Icons.notifications_outlined),
+                      ),
                       Icon(Icons.search),
                     ],
                   ),
@@ -44,14 +52,16 @@ class MyAccountScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: const[
-          MyBelowAppBar(),
-          Gap(10),
-          MyTopButtons(),
-          Gap(10),
-          MyOrders(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            MyBelowAppBar(),
+            Gap(10),
+            MyTopButtons(),
+            Gap(10),
+            MyOrders(),
+          ],
+        ),
       ),
     );
   }

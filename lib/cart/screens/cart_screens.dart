@@ -1,7 +1,9 @@
 import 'package:amazon_clone/cart/widgets/cart_product.dart';
 import 'package:amazon_clone/cart/widgets/cart_subtotal.dart';
+import 'package:amazon_clone/common/Widgets/utills.dart';
 import 'package:amazon_clone/common/mycustombutton.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
+import 'package:amazon_clone/features/address/screens/address_Screen.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +27,18 @@ class _MyCartScreenState extends State<MyCartScreen> {
     Navigator.pushNamed(context, MySearchScreen.routeName, arguments: query);
   }
 
+  void navigateToAddress(int sum) {
+    Navigator.pushNamed(context, MyAddressScreen.routeName,
+        arguments: sum.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserProvider>().user;
-
+    int sum = 0;
+    user.cart
+        .map((e) => sum += e['quantity'] * e['product']['price'] as int)
+        .toList();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -119,7 +129,19 @@ class _MyCartScreenState extends State<MyCartScreen> {
             padding: const EdgeInsets.all(8.0),
             child: MyCustomButton(
               text: 'Proceed to Buy ${user.cart.length} items',
-              onTap: () {},
+              onTap: () => user.cart.length == 0
+                  ? showSnackBar(context, "Please add item!")
+                  : navigateToAddress(sum),
+              //() => {
+              //   if (user.cart.length == 0)
+              //     {
+              //       showSnackBar(context, 'Please enter item! '),
+              //     }
+              //   else
+              //     {
+              //       () => navigateToAddress(sum),
+              //     }
+              // },
               color: const Color.fromRGBO(254, 216, 19, 1),
             ),
           ),

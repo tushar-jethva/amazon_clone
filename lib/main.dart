@@ -1,5 +1,3 @@
-
-
 import 'package:amazon_clone/common/Widgets/bottombar.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
@@ -55,20 +53,11 @@ class _MyAppState extends State<MyApp> {
           appBarTheme: AppBarTheme(
               elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home:
-          // Provider.of<UserProvider>(context).user.token.isNotEmpty
-          //   ? Provider.of<UserProvider>(context).user.type == 'user'
-          //       ? const MyBottomBar()
-          //       : const MyAdminScreen()
-          //   : const MyAuthScreen(),
-
-      
-          Provider.of<UserProvider>(context).user.token.isNotEmpty
-              ? 
-              Provider.of<UserProvider>(context).user.type == "user"
-                  ? MyBottomBar()
-                  : MyAdminScreen()
-              : MyAuthScreen(), 
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? Provider.of<UserProvider>(context).user.type == "user"
+              ? MyBottomBar()
+              : MyAdminScreen()
+          : MyAuthScreen(),
     );
   }
 }
