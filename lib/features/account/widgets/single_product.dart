@@ -10,14 +10,16 @@ class MySingleProduct extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: DecoratedBox(
-          child: Container(
-              width: 180,
-              padding: const EdgeInsets.all(5),
-              child: CachedNetworkImage(imageUrl:path,fit: BoxFit.fitHeight,width: 180,)),
-        
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.white,
-            border: Border.all(color: Colors.black12, width: 1.5))));
+            child: Container(
+                width: 180,
+                padding: const EdgeInsets.all(5),
+                child: CachedNetworkImage(
+                  imageUrl: path,
+                  width: 180,
+                )),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Colors.white,
+                border: Border.all(color: Colors.black12, width: 1.5))));
   }
 }

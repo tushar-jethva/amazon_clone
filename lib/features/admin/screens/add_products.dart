@@ -67,14 +67,18 @@ class _MyAdminProductsAddState extends State<MyAdminProductsAdd> {
 
   void sellProduct() {
     adminServices.sellProduct(
-      context: context,
-      name: _productNameController.text,
-      description: _discriptionController.text,
-      price: double.parse(_priceController.text),
-      quantity: double.parse(_quantityController.text),
-      category: category,
-      images: images,
-    );
+        context: context,
+        name: _productNameController.text,
+        description: _discriptionController.text,
+        price: double.parse(_priceController.text),
+        quantity: double.parse(_quantityController.text),
+        category: category,
+        images: images,
+        onSuccess: () {
+          Navigator.pop(context);
+          showSnackBar(context, "Product is added Successfully!");
+          setState(() {});
+        });
   }
 
   @override

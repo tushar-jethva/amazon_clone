@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gap/gap.dart';
-
 import '../../../models/product.dart';
 
 class MyAdminPostScreen extends StatefulWidget {
@@ -24,8 +23,7 @@ class _MyAdminPostScreenState extends State<MyAdminPostScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-        setState(() {
-    });
+    setState(() {});
     fetchAllProducts();
   }
 
@@ -36,8 +34,7 @@ class _MyAdminPostScreenState extends State<MyAdminPostScreen> {
 
   void navigateToAddProduct() {
     Navigator.pushNamed(context, MyAdminProductsAdd.routeName);
-    setState(() {
-    });
+    setState(() {});
   }
 
   void deleteProduct(Product product, int index) {
@@ -46,9 +43,7 @@ class _MyAdminPostScreenState extends State<MyAdminPostScreen> {
         product: product,
         onSuccess: () {
           products!.removeAt(index);
-          setState(() {
-            
-          });
+          setState(() {});
         });
   }
 
@@ -59,6 +54,7 @@ class _MyAdminPostScreenState extends State<MyAdminPostScreen> {
         : Scaffold(
             body: GridView.builder(
                 itemCount: products!.length,
+                reverse: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (context, index) {
@@ -80,7 +76,8 @@ class _MyAdminPostScreenState extends State<MyAdminPostScreen> {
                             maxLines: 2,
                           )),
                           IconButton(
-                              onPressed: () => deleteProduct(productData, index),
+                              onPressed: () =>
+                                  deleteProduct(productData, index),
                               icon: const Icon(Icons.delete_outlined)),
                         ],
                       )

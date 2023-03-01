@@ -1,7 +1,11 @@
 import 'package:amazon_clone/costants/globalvariables.dart';
+import 'package:amazon_clone/features/account/services/account_services.dart';
+import 'package:amazon_clone/features/admin/screens/admin_order_screen.dart';
+import 'package:amazon_clone/features/admin/screens/analytical_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
 import 'package:amazon_clone/features/admin/screens/second_admin_posts.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -18,18 +22,15 @@ class MyAdminScreen extends StatefulWidget {
 }
 
 class _MyAdminScreenState extends State<MyAdminScreen> {
+  final AccountServices accountServices = AccountServices();
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 3;
 
   List<Widget> pages = [
     MyAdminPostScreen(),
-    const Center(
-      child: Text('Analytics Pages'),
-    ),
-    const Center(
-      child: Text('Cart Pages'),
-    ),
+    MyAnalyticalScreen(),
+    MyAdminOrderScreen(),
   ];
 
   void updatePage(int page) {
@@ -66,26 +67,25 @@ class _MyAdminScreenState extends State<MyAdminScreen> {
                 ),
                 InkWell(
                     onDoubleTap: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, MyAuthScreen.routeName, (route) => false);
+                      accountServices.logOut(context: context);
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        
-                         
-                          const Text(
-
-                              'Admin',
-                              style: TextStyle(
-                                fontSize: 12,
-                                  fontWeight: FontWeight.w400, color: Colors.black),
-                            ),
-                         
-                        
-                        Text(user.name,style: TextStyle(
-                            fontSize: 18,
-                              fontWeight: FontWeight.w500, color: Colors.black),),
+                        const Text(
+                          'Admin',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black),
+                        ),
+                        Text(
+                          user.name,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
+                        ),
                       ],
                     )),
               ],
