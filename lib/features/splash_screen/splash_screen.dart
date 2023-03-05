@@ -21,34 +21,44 @@ class MySplashScreen extends StatefulWidget {
 
 class _MySplashScreenState extends State<MySplashScreen> {
   final AuthService authService = AuthService();
+  bool isUser = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    authService.getUserData(context);
-    print('hello i am here');
-    Timer(Duration(seconds: 1), () {
+    if (isUser) authService.getUserData(context);
+
+    setState(() {
+      isUser = true;
+    });
+    Timer(Duration(seconds: 3), () {
       another();
     });
   }
+
   void pushToBottom(BuildContext context) {
-    print('bottom');
-    Navigator.pushNamed(context, MyBottomBar.routeName);
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      MyBottomBar.routeName,
+      (route) => false,
+    );
   }
 
   void pushToAdminScreen(BuildContext context) {
-    print('admin');
-    Navigator.pushNamed(context, MyAdminScreen.routeName);
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      MyAdminScreen.routeName,
+      (route) => false,
+    );
   }
 
   void pushToAuthScreen(BuildContext context) {
-    print('auth');
-    print(Provider.of<UserProvider>(context, listen: false).user.name);
-    Navigator.pushNamed(context, MyAuthScreen.routeName);
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      MyAuthScreen.routeName,
+      (route) => false,
+    );
   }
-
-  
 
   void another() {
     Provider.of<UserProvider>(context, listen: false).user.token.isNotEmpty
@@ -62,7 +72,14 @@ class _MySplashScreenState extends State<MySplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: MyGlobalVariables.secondaryColor,
+        color: Colors.white,
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Image.asset('assets/images/amazon_icon.png')],
+          ),
+        ),
       ),
     );
   }

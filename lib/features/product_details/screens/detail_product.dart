@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:amazon_clone/cart/screens/cart_screens.dart';
 import 'package:amazon_clone/common/mycustombutton.dart';
 import 'package:amazon_clone/common/stars.dart';
 import 'package:amazon_clone/costants/globalvariables.dart';
@@ -65,6 +66,14 @@ class _MyWidgetState extends State<MyDetailScreen> {
 
   void addToCart() {
     productDetailServices.addToCart(context: context, product: widget.product);
+  }
+
+  void addToCartAndNavigateToCart() {
+    productDetailServices.addToCart(context: context, product: widget.product);
+  }
+
+  void navigateToCart() {
+    Navigator.pushNamed(context, MyCartScreen.routeName);
   }
 
   @override
@@ -249,13 +258,17 @@ class _MyWidgetState extends State<MyDetailScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: MyCustomButton(onTap: () {}, text: 'Buy Now'),
+              child: MyCustomButton(
+                  onTap: () {
+                    addToCartAndNavigateToCart();
+                  },
+                  text: 'Buy Now'),
             ),
             Gap(10),
             Padding(
               padding: const EdgeInsets.all(10),
               child: MyCustomButton(
-                onTap:addToCart,
+                onTap: addToCart,
                 text: 'Add to Cart',
                 color: const Color.fromRGBO(254, 216, 19, 1),
               ),
