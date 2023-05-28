@@ -14,7 +14,8 @@ import 'package:provider/provider.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.transparent, // navigation bar color
-    statusBarColor: Colors.transparent, // status bar color
+    statusBarColor: Colors.transparent,
+     // status bar color
   ));
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(

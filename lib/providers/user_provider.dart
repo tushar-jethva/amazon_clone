@@ -2,6 +2,7 @@ import 'package:amazon_clone/models/user.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
+  
   User _user = User(
       id: '',
       name: '',
@@ -24,4 +25,5 @@ class UserProvider extends ChangeNotifier {
     _user = user;
     notifyListeners();
   }
+
 }

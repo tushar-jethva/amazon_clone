@@ -41,10 +41,12 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    paymentItems.add(PaymentItem(
-        amount: widget.amount,
-        label: 'Total Amount',
-        status: PaymentItemStatus.final_price));
+    paymentItems.add(
+      PaymentItem(
+          amount: widget.amount,
+          label: 'Total Amount',
+          status: PaymentItemStatus.final_price),
+    );
   }
 
   @override
@@ -84,7 +86,10 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
   }
 
   void onGooglePayResult(res) {
-    if (Provider.of<UserProvider>(context,listen: false).user.address.isEmpty) {
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
       addressServices.saveUserAddress(
           context: context, Address: addressToBeUsed);
     }
@@ -167,22 +172,23 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                 ),
               ),
               FutureBuilder<PaymentConfiguration>(
-                  future: _googlePayConfigFuture,
-                  builder: (context, snapshot) => snapshot.hasData
-                      ? GooglePayButton(
-                          onPressed: () => payPressed(address),
-                          paymentConfiguration: snapshot.data!,
-                          paymentItems: paymentItems,
-                          type: GooglePayButtonType.buy,
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(top: 15.0),
-                          height: 50,
-                          onPaymentResult: onGooglePayResult,
-                          loadingIndicator: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
-                      : const SizedBox.shrink()),
+                future: _googlePayConfigFuture,
+                builder: (context, snapshot) => snapshot.hasData
+                    ? GooglePayButton(
+                        onPressed: () => payPressed(address),
+                        paymentConfiguration: snapshot.data!,
+                        paymentItems: paymentItems,
+                        type: GooglePayButtonType.buy,
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(top: 15.0),
+                        height: 50,
+                        onPaymentResult: onGooglePayResult,
+                        loadingIndicator: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ),
             ],
           ),
         ),

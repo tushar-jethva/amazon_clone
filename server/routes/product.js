@@ -18,13 +18,12 @@ productRouter.get('/api/products',auth,async(req,res)=>{
     }
 })
 
-productRouter.get('/api/product/search/:name',auth,async(req,res)=>{
+productRouter.get('/api/product/search/:name',async(req,res)=>{
     try{
         const products = await Product.find({
             name:{$regex: req.params.name, $options: 'i'},
         });
         res.json(products);
-        
     }
     catch(e){
         res.status(500).json({error:e.message});
@@ -41,7 +40,7 @@ productRouter.get('/api/product/search/:name',auth,async(req,res)=>{
 //     catch(e){
 //         res.status(500).json({error:e.message});
 //     }
-// })
+// });
 productRouter.get('/api/product',auth,async(req,res)=>{
     try{
             console.log(req.query.query);
